@@ -6,3 +6,13 @@ Afterwards, run correlation_checker.py. To clean the data and remove features wi
 Compact consolidates the emotion scores per languages into one value and trimmed then removes those compacted values that have high correlation between each other. I did not put it as default as scores between languages did not show strong correlation between each other and led to overfitted models.
 
 Once the data is scraped and cleaned, you can run the model that interests you, the model will be compared to a baseline model (for example, in the case of the classifiers they will be compared to a "most frequent" guess.)
+
+Credits to:
+ - Sinan Talha Hascelik (2019)
+Repo: http://www.apache.org/licenses/LICENSE-2.0 
+
+- boltuix/bert-emotion
+Website: https://huggingface.co/boltuix/bert-emotion 
+
+- distilbert/distilbert-base-uncased-finetuned-sst-2-english
+Website: https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english
