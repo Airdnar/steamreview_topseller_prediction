@@ -1,4 +1,4 @@
-To gather the data, first scrape Steam's website running scraper/feature_extraction_batch.py. This will go through Steam's top seller page and gather the top 100 best selling games as well as their respective reviews.
+To gather the data, first scrape Steam's website by running scraper/feature_extraction_batch.py. This will go through Steam's top seller page and gather the top 100 best selling games as well as their respective reviews.
 This script will scrape reviews in English, Russiam, and simplified Chinese as those are the languages with the most users on the platform. If you want to explore it for other languages you will need to modify scraper/scripts.py.
 The feature extraction will also run the reviews through distillbert and bertemotion right away, as well as perform an LDA topic modelling per language.
 
