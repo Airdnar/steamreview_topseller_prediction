@@ -1,5 +1,6 @@
 import pandas as pd
-
+import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.dummy import DummyClassifier
@@ -23,7 +24,7 @@ cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 # 5. Define classifiers
 rf_clf    = RandomForestClassifier(
     n_estimators=100,
-    max_depth=5,
+    max_depth=4,
     min_samples_leaf=9,
     random_state=42
 )
@@ -75,3 +76,19 @@ comparison['Δ'] = comparison['RandomForest'] - comparison['Baseline']
 
 print("\nMetric comparison:")
 print(comparison.to_string(float_format='%.3f'))
+
+# 10. Fit the Random Forest on the entire dataset
+rf_clf.fit(X, y)
+
+# 11. Get feature importances and select top 5
+importances = rf_clf.feature_importances_
+feat_imp = pd.Series(importances, index=keep_cols)
+top5 = feat_imp.sort_values(ascending=False).head(5)
+
+# 12. Plot bar chart of top-5 importances
+plt.figure(figsize=(8, 6))
+plt.barh(top5.index[::-1], top5.values[::-1])  # reverse for descending top→bottom
+plt.xlabel("Mean Decrease in Impurity")
+plt.title("Top 5 Features by Importance (Random Forest)")
+plt.tight_layout()
+plt.show()

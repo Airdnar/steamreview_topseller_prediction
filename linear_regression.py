@@ -40,7 +40,7 @@ selected_vars = [v for v in selected_vars if v != "intercept"]
 X = top100[selected_vars]
 y=top100['rank']
 
-kf = KFold(n_splits=10, shuffle=True, random_state=42)
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
 model = LinearRegression()
 
 mae_scorer = make_scorer(mean_absolute_error, greater_is_better=False)
@@ -59,7 +59,7 @@ mae = -neg_mae.mean()
 mse = -neg_mse.mean()
 rmse = mse**0.5
 
-print("10-Fold CV Results:")
+print("5-Fold CV Results:")
 print(f"  • MAE:  {mae:.3f}")
 print(f"  • MSE:  {mse:.3f}")
 print(f"  • RMSE: {rmse:.3f}")

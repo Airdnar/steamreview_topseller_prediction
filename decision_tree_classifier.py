@@ -1,10 +1,11 @@
 import pandas as pd
-
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 from sklearn.dummy import DummyClassifier
+import matplotlib.pyplot as plt
+from sklearn.tree import plot_tree
 
-# 1. Load and clean data
+# 1. Load the data
 data = pd.read_csv('data/features/simplified_features.csv')
 
 # 2. Build binary target: 1 if rank ≤ 10 (Top 10), else 0
@@ -20,8 +21,8 @@ y = data['is_top10']
 # 4. Set up 5-fold stratified CV
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
-# 5. Define classifiers (no oversampling)
-tree_clf  = DecisionTreeClassifier(random_state=42, max_depth=5, min_samples_leaf=5)
+# 5. Define classifiers
+tree_clf  = DecisionTreeClassifier(random_state=42, max_depth=4, min_samples_leaf=3)
 dummy_clf = DummyClassifier(strategy='most_frequent', random_state=42)
 
 # 6. Use built-in scoring shortcuts
@@ -69,3 +70,18 @@ comparison['Δ'] = comparison['Model'] - comparison['Baseline']
 
 print("\nMetric comparison:")
 print(comparison.to_string(float_format='%.3f'))
+
+# 10. Visualize the Decision Tree
+tree_clf.fit(X, y)
+
+plt.figure(figsize=(20, 10))
+plot_tree(
+    tree_clf,
+    feature_names=keep_cols,
+    class_names=['Not Top 10', 'Top 10'],
+    filled=True,
+    rounded=True,
+    fontsize=10
+)
+plt.title("Decision Tree for Top-10 Classification")
+plt.show()

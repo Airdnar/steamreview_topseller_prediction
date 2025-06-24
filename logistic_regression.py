@@ -28,7 +28,7 @@ selected_vars, iteration_log, final_model = BidirectionalStepwiseSelection(
     elimination_criteria="aic",   # minimize AIC
     varchar_process="dummy_dropfirst",
     senter=0.20,                  # p-value to enter
-    sstay=0.15                    # p-value to stay
+    sstay=0.20                    # p-value to stay
 )
 
 print("=== Selected Variables ===")
@@ -52,8 +52,8 @@ clf = LogisticRegression(class_weight='balanced', max_iter=1000, random_state=42
 scorers = {
     'Accuracy':  make_scorer(accuracy_score),
     'ROC AUC':   make_scorer(roc_auc_score, needs_proba=True),
-    'Precision': make_scorer(precision_score, zero_division=0),
-    'Recall':    make_scorer(recall_score, zero_division=0),
+    'Precision': make_scorer(precision_score, average = 'macro', zero_division=0),
+    'Recall':    make_scorer(recall_score, average = 'macro', zero_division=0),
 }
 
 model_results = {}
